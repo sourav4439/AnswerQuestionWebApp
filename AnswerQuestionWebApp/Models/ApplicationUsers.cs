@@ -10,7 +10,7 @@ namespace AnswerQuestionWebApp.Models
     {
         public ApplicationUsers():base(){  }
 
-        public string FirstName { get; set; }
+       
 
 
 
