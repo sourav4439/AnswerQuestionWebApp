@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnswerQuestionWebApp.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUsers>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

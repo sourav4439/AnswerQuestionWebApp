@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using AnswerQuestionWebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AnswerQuestionWebApp.Models;
+using Microsoft.AspNetCore.Identity.UI;
 
 namespace AnswerQuestionWebApp
 {
@@ -37,8 +39,11 @@ namespace AnswerQuestionWebApp
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<ApplicationUsers, IdentityRole>(
+               options => options.Stores.MaxLengthForKeys = 128)
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultUI(UIFramework.Bootstrap4)
+               .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
