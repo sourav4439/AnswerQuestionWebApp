@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using AnswerQuestionWebApp.Models.UsersProfiles;
 
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 {
@@ -41,9 +42,38 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string Photo { get; set; }
+
+            [Required]
+            [StringLength(15)]
+            public string Name { get; set; }
+
+            public Gender Gender { get; set; }
+            [Required]
+            [Display(Name = "Gender")]
+            public int GenderId { get; set; }
+
+            public Country Country { get; set; }
+            [Required]
+            [Display(Name = "Country")]
+            public int CountryId { get; set; }
+
+            public Langues Langues { get; set; }
+            [Required]
+            [Display(Name = "Langues")]
+            public int LanguesId { get; set; }
+
+
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+            [Required]
+            [Phone]
+            [Display(Name = "Mobile No.")]
+            public string PhoneNumber { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -67,7 +97,15 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUsers { UserName = Input.Email };
+                var user = new ApplicationUsers {
+                    UserName = Input.Email,
+                    Name= Input.Name,
+                    Photo = Input.Photo,
+                    GenderId = Input.GenderId,
+                    CountryId = Input.CountryId,
+                    LanguesId = Input.LanguesId,
+                    PhoneNumber = Input.PhoneNumber,        
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
