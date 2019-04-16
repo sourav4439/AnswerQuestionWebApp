@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20190416151516_Forphotoupload.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     
     <PackageReference Include="Microsoft.AspNetCore.App" />
     

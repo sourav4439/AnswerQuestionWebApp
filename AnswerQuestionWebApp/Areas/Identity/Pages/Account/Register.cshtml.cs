@@ -11,6 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using AnswerQuestionWebApp.Models.UsersProfiles;
+using AnswerQuestionWebApp.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 {
@@ -21,28 +26,34 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _db;
 
         public RegisterModel(
             UserManager<ApplicationUsers> userManager,
             SignInManager<ApplicationUsers> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _db = db;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
+        public List<SelectListItem> Countries { get; set; }
+        public List<SelectListItem> Gender { get; set; }
+        public List<SelectListItem> Langues { get; set; }
 
         public class InputModel
         {
             [Required]
-            public string Photo { get; set; }
+            public IFormFile Photo { get; set; }
 
             [Required]
             [StringLength(15)]
@@ -89,7 +100,12 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
+
             ReturnUrl = returnUrl;
+
+            Countries = _db.Countries.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList();
+            Gender= _db.Genders.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList();
+            Langues = _db.Langues.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -99,13 +115,18 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUsers {
                     UserName = Input.Email,
-                    Name= Input.Name,
-                    Photo = Input.Photo,
+                    Name= Input.Name,                   
                     GenderId = Input.GenderId,
                     CountryId = Input.CountryId,
                     LanguesId = Input.LanguesId,
                     PhoneNumber = Input.PhoneNumber,        
                 };
+                using (var memoryStream = new MemoryStream())
+                {
+                    await Input.Photo.CopyToAsync(memoryStream);
+                    user.Photo = memoryStream.ToArray();
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
