@@ -8,6 +8,7 @@ using AnswerQuestionWebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using AnswerQuestionWebApp.Models.UsersProfiles;
 
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 {

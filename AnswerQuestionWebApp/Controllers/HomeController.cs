@@ -5,16 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AnswerQuestionWebApp.Models;
+using AnswerQuestionWebApp.Data;
 
 namespace AnswerQuestionWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _db;
+        public HomeController(ApplicationDbContext Db)
+        {
+            _db =Db;
+
+        }
         public IActionResult Index()
         {
+            
+
             return View();
         }
+        public IActionResult Users()
+        {
+            var user = _db.Users.ToList();
 
+
+
+            return View(user);
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

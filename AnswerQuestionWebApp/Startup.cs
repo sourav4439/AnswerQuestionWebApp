@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AnswerQuestionWebApp.Models;
 using Microsoft.AspNetCore.Identity.UI;
+using AnswerQuestionWebApp.Models.UsersProfiles;
 
 namespace AnswerQuestionWebApp
 {

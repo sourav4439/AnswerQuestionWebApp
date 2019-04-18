@@ -15,6 +15,7 @@ namespace AnswerQuestionWebApp.Data
         {
             
         }
+       
         public DbSet<Post> posts { get; set; }
         public DbSet<PostTag> postTags { get; set; }
         public DbSet<Country> Countries { get; set; }

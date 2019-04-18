@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using AnswerQuestionWebApp.Models.UsersProfiles;
 
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account.Manage
 {

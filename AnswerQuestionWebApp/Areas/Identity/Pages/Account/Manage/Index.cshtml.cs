@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AnswerQuestionWebApp.Models;
+using AnswerQuestionWebApp.Models.UsersProfiles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -41,11 +42,33 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public byte[] Photo { get; set; }
 
+            [Required]
+            [StringLength(15)]
+            public string Name { get; set; }
+
+            public Gender Gender { get; set; }
+            [Required]
+            [Display(Name = "Gender")]
+            public int GenderId { get; set; }
+
+            public Country Country { get; set; }
+            [Required]
+            [Display(Name = "Country")]
+            public int CountryId { get; set; }
+
+            public Langues Langues { get; set; }
+            [Required]
+            [Display(Name = "Langues")]
+            public int LanguesId { get; set; }
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+            [Required]
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Mobile No.")]
             public string PhoneNumber { get; set; }
         }
 
@@ -57,16 +80,22 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var userName = await _userManager.GetUserNameAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+          
 
-            Username = userName;
+            Username = user.UserName;
+
 
             Input = new InputModel
             {
-                Email = email,
-                PhoneNumber = phoneNumber
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Name = user.Name,
+                Gender = user.Gender,
+                Country = user.Country,
+                Langues = user.Langues,
+                Photo = user.Photo,
+                
+
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
