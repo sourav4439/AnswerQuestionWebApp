@@ -15,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using AnswerQuestionWebApp.Models;
 using Microsoft.AspNetCore.Identity.UI;
 using AnswerQuestionWebApp.Models.UsersProfiles;
+using AnswerQuestionWebApp.Data.Interfaces;
+using AnswerQuestionWebApp.Data.Repository;
+using AnswerQuestionWebApp.Models.Post;
 
 namespace AnswerQuestionWebApp
 {
@@ -39,7 +42,9 @@ namespace AnswerQuestionWebApp
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"))
+                    );
+            services.AddTransient<ImainTagRepository, MaintagRepository>();
 
             services.AddIdentity<ApplicationUsers, IdentityRole>(
                 options => options.Stores.MaxLengthForKeys = 128)
@@ -72,6 +77,10 @@ namespace AnswerQuestionWebApp
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                     name: "Admin",
+                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

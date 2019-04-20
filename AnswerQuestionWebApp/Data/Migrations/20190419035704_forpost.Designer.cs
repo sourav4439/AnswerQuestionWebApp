@@ -4,14 +4,16 @@ using AnswerQuestionWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190419035704_forpost")]
+    partial class forpost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -65,11 +66,9 @@ namespace AnswerQuestionWebApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUsersId")
-                        .IsRequired();
+                    b.Property<string>("ApplicationUsersId");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
                     b.Property<DateTime>("PostDT");
 
@@ -77,8 +76,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
 
                     b.Property<int>("TagId");
 
-                    b.Property<string>("Title")
-                        .IsRequired();
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
@@ -97,14 +95,9 @@ namespace AnswerQuestionWebApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MainTagId");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MainTagId");
 
                     b.ToTable("subtags");
                 });
@@ -310,8 +303,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
                 {
                     b.HasOne("AnswerQuestionWebApp.Models.UsersProfiles.ApplicationUsers", "applicationUsers")
                         .WithMany()
-                        .HasForeignKey("ApplicationUsersId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationUsersId");
 
                     b.HasOne("AnswerQuestionWebApp.Models.Post.Subtag", "Subtag")
                         .WithMany()
@@ -319,16 +311,8 @@ namespace AnswerQuestionWebApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AnswerQuestionWebApp.Models.Post.MainTag", "Tag")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.Subtag", b =>
-                {
-                    b.HasOne("AnswerQuestionWebApp.Models.Post.MainTag", "MainTag")
-                        .WithMany("Subtags")
-                        .HasForeignKey("MainTagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

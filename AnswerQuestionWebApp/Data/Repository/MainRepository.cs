@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Repository
 {
-    public class MainRepository<T> : Irepository<T> where T : class
+    public class MainRepository<T> : IRepository<T> where T : class
     {
         protected readonly ApplicationDbContext db;
 

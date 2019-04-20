@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Interfaces
 {
-    public interface Irepository<T> where T:class
+    public interface IRepository<T> where T:class
     {
         
         IEnumerable<T> GetAll();
