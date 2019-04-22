@@ -48,6 +48,8 @@ namespace AnswerQuestionWebApp.Data.Repository
            return db.Set<T>().Find(id);
         }
 
+        
+
         public void Update(T entity)
         {
            db.Entry(entity).State = EntityState.Modified;

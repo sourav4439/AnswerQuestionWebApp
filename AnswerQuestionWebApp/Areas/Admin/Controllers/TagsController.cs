@@ -6,17 +6,21 @@ using AnswerQuestionWebApp.Data.Interfaces;
 using AnswerQuestionWebApp.Models.Post;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnswerQuestionWebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class TagsController : Controller
     {
-        private ImainTagRepository _imainrepo;
+        private readonly ImainTagRepository imainrepo;
+        private readonly Isubtagsrepo isubtagsrepo;
 
-        public TagsController(ImainTagRepository imaintagrepository)
+        public TagsController(ImainTagRepository _imainrepo,Isubtagsrepo _isubtagsrepo)
         {
-            _imainrepo = imaintagrepository;
+            imainrepo = _imainrepo;
+            isubtagsrepo = _isubtagsrepo;
+
         }
         public IActionResult Index()
         {
@@ -25,7 +29,7 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult MainTagList()
         {
-            var list = _imainrepo.GetAll();
+            var list = imainrepo.GetAll();
             return View(list);
         }
 
@@ -40,7 +44,7 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                _imainrepo.Create(mainTag);
+                imainrepo.Create(mainTag);
 
                 return RedirectToAction("MainTagList");
             }
@@ -49,7 +53,7 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
         }
         public IActionResult Editmaintag(int id)
         {
-            var maintag = _imainrepo.GetById(id);
+            var maintag = imainrepo.GetById(id);
             return View(maintag);
         }
         [HttpPost]
@@ -57,7 +61,7 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _imainrepo.Update(mainTag);
+                imainrepo.Update(mainTag);
                 return RedirectToAction("MainTagList");
             }
 
@@ -65,16 +69,103 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
         }
         public IActionResult Deletemaintag(int id)
         {
-            var maintag = _imainrepo.GetById(id);
+            var maintag = imainrepo.GetById(id);
             return View(maintag);
 
         }
         [HttpPost]
         public IActionResult Deletemaintag(MainTag main)
         {
-            _imainrepo.Delete(main);
+            imainrepo.Delete(main);
             return RedirectToAction("MainTagList");
 
         }
+
+
+
+        //Down Action for sub Tags
+
+
+
+        [HttpGet]
+        public IActionResult SubTagList()
+        {
+            var list = isubtagsrepo.GetsubtagwithMaintags();
+            return View(list);
+        }
+
+        public IActionResult CreateSubTag()
+        {
+            ViewBag.MainTagId = imainrepo.GetAll().Select(a => new SelectListItem {
+                                                    Value = a.Id.ToString(),
+                                                    Text = a.Name }).ToList();
+         
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateSubTag(Subtag subtag)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                isubtagsrepo.Create(subtag);
+
+                return RedirectToAction("SubTagList");
+            }
+            else
+                return View(subtag);
+        }
+        public IActionResult EditSubTag(int id)
+        {
+            var subtag = isubtagsrepo.GetById(id);
+            ViewBag.MainTagId = imainrepo.GetAll().Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+            return View(subtag);
+        }
+        [HttpPost]
+        public IActionResult EditSubTag(Subtag subtag)
+        {
+            if (ModelState.IsValid)
+            {
+                isubtagsrepo.Update(subtag);
+                return RedirectToAction("SubTagList");
+            }
+
+            return View(subtag);
+        }
+        public IActionResult DeleteSubTag(int id)
+        {
+            var subtag = isubtagsrepo.GetById(id);
+            return View(subtag);
+
+        }
+        [HttpPost]
+        public IActionResult DeleteSubTag(Subtag subtag)
+        {
+            isubtagsrepo.Delete(subtag);
+            return RedirectToAction("SubTagList");
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

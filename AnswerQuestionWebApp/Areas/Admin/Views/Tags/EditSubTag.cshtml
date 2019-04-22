@@ -1,22 +1,27 @@
-﻿@model AnswerQuestionWebApp.Models.Post.MainTag
+﻿@model AnswerQuestionWebApp.Models.Post.Subtag
 
 @{
-    ViewData["Title"] = "Editmaintag";
+    ViewData["Title"] = "EditSubTag";
 }
 
-<h2>Editmaintag</h2>
+<h2>EditSubTag</h2>
 
-<h4>MainTag</h4>
+<h4>Subtag</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Editmaintag">
+        <form asp-action="EditSubTag">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MainTagId" class="control-label"></label>
+                <select asp-for="MainTagId" class="form-control" asp-items="ViewBag.MainTagId"></select>
+                <span asp-validation-for="MainTagId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -26,7 +31,7 @@
 </div>
 
 <div>
-    <a asp-action="MainTagList">Back to List</a>
+    <a asp-action="SubTagList">Back to List</a>
 </div>
 
 @section Scripts {
