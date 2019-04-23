@@ -64,12 +64,12 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
             [Display(Name = "Gender")]
             public int GenderId { get; set; }
 
-            public Country Country { get; set; }
+            
             [Required]
             [Display(Name = "Country")]
             public int CountryId { get; set; }
 
-            public Langues Langues { get; set; }
+            
             [Required]
             [Display(Name = "Langues")]
             public int LanguesId { get; set; }

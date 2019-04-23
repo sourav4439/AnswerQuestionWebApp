@@ -10,6 +10,6 @@ namespace AnswerQuestionWebApp.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<ApplicationUsers> applicationUsers { get; set; }
+        public IEnumerable<ApplicationUsers> ApplicationUsers { get; set; }
     }
 }

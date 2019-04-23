@@ -11,7 +11,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190416060901_seedingCountry")]
-    partial class seedingCountry
+    partial class SeedingCountry
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

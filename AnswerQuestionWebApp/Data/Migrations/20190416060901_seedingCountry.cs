@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
-    public partial class seedingCountry : Migration
+    public partial class SeedingCountry : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

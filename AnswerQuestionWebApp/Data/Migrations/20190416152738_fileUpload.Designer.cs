@@ -11,7 +11,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190416152738_fileUpload")]
-    partial class fileUpload
+    partial class FileUpload
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

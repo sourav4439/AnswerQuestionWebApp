@@ -14,9 +14,9 @@ namespace AnswerQuestionWebApp.Controllers
     {
         private readonly ApplicationDbContext _db;
         
-        public HomeController(ApplicationDbContext Db)
+        public HomeController(ApplicationDbContext db)
         {
-            _db =Db;
+            _db =db;
 
         }
         public IActionResult Index()

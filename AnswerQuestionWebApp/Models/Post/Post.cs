@@ -18,7 +18,7 @@ namespace AnswerQuestionWebApp.Models.Post
         [Required]
         public string Description { get; set; }
         [Required]
-        public DateTime PostDT { get; set; }
+        public DateTime PostDt { get; set; }
         
 
         public MainTag Tag { get; set; }
@@ -31,10 +31,12 @@ namespace AnswerQuestionWebApp.Models.Post
         [Display(Name = "Subtag")]
         public int SubtagId { get; set; }
 
-        public virtual ApplicationUsers applicationUsers { get; set; }
+        public virtual ApplicationUsers ApplicationUsers { get; set; }
         [Required]
         [Display(Name = "Post By")]
         public string ApplicationUsersId { get; set; }
+
+        
 
 
     }

@@ -2,7 +2,7 @@
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
-    public partial class minormodifyMainTagmodel : Migration
+    public partial class MinormodifyMainTagmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

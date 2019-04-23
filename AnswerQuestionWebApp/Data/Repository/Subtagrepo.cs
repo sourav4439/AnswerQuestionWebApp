@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Repository
 {
-    public class Subtagrepo : MainRepository<Subtag>, Isubtagsrepo
+    public class Subtagrepo : MainRepository<Subtag>, ISubtagsrepo
     {
         public Subtagrepo(ApplicationDbContext context) : base(context)
         {
@@ -18,7 +18,7 @@ namespace AnswerQuestionWebApp.Data.Repository
 
        public IEnumerable<Subtag> GetsubtagwithMaintags()
         {
-            return db.subtags.Include(m => m.MainTag).ToList();
+            return Db.Subtags.Include(m => m.MainTag).ToList();
         }
     }
 }

@@ -9,56 +9,56 @@ namespace AnswerQuestionWebApp.Data.Repository
 {
     public class MainRepository<T> : IRepository<T> where T : class
     {
-        protected readonly ApplicationDbContext db;
+        protected readonly ApplicationDbContext Db;
 
 
         public MainRepository(ApplicationDbContext context)
         {
-            db = context;
+            Db = context;
         }
         public int Count(Func<T, bool> predicate)
         {
-            return db.Set<T>().Where(predicate).Count();
+            return Db.Set<T>().Where(predicate).Count();
                 
         }
 
         public void Create(T entity)
         {
-            db.Add(entity);
+            Db.Add(entity);
             Save();
         }       
         public void Delete(T entity)
         {
-            db.Remove(entity);
+            Db.Remove(entity);
             Save();
         }
 
         public IEnumerable<T> Find(Func<T, bool> predicate)
         {
-           return db.Set<T>().Where(predicate);
+           return Db.Set<T>().Where(predicate);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return db.Set<T>();
+            return Db.Set<T>();
         }
 
         public T GetById(int id)
         {
-           return db.Set<T>().Find(id);
+           return Db.Set<T>().Find(id);
         }
 
         
 
         public void Update(T entity)
         {
-           db.Entry(entity).State = EntityState.Modified;
+           Db.Entry(entity).State = EntityState.Modified;
            Save();
         }
 
         protected void Save()
         {
-            db.SaveChanges();
+            Db.SaveChanges();
         }
     }
 }

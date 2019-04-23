@@ -45,6 +45,52 @@ namespace AnswerQuestionWebApp.Data.Migrations
                     b.ToTable("Langues");
                 });
 
+            modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.CommentPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUsersId")
+                        .IsRequired();
+
+                    b.Property<string>("CommentDescription")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<int>("PostId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUsersId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("CommentPosts");
+                });
+
+            modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.Likepost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUsersId")
+                        .IsRequired();
+
+                    b.Property<byte>("LikeCount");
+
+                    b.Property<int>("PostId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUsersId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Likeposts");
+                });
+
             modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.MainTag", b =>
                 {
                     b.Property<int>("Id")
@@ -306,6 +352,32 @@ namespace AnswerQuestionWebApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.CommentPost", b =>
+                {
+                    b.HasOne("AnswerQuestionWebApp.Models.UsersProfiles.ApplicationUsers", "ApplicationUsers")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUsersId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AnswerQuestionWebApp.Models.Post.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.Likepost", b =>
+                {
+                    b.HasOne("AnswerQuestionWebApp.Models.UsersProfiles.ApplicationUsers", "ApplicationUsers")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUsersId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AnswerQuestionWebApp.Models.Post.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.Post", b =>
                 {
                     b.HasOne("AnswerQuestionWebApp.Models.UsersProfiles.ApplicationUsers", "applicationUsers")
@@ -319,7 +391,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("AnswerQuestionWebApp.Models.Post.MainTag", "Tag")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -327,7 +399,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
             modelBuilder.Entity("AnswerQuestionWebApp.Models.Post.Subtag", b =>
                 {
                     b.HasOne("AnswerQuestionWebApp.Models.Post.MainTag", "MainTag")
-                        .WithMany("Subtags")
+                        .WithMany()
                         .HasForeignKey("MainTagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

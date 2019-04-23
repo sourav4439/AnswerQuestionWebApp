@@ -16,10 +16,15 @@ namespace AnswerQuestionWebApp.Data
         {
             
         }
-        
-        public DbSet<Post> posts { get; set; }
-        public DbSet<MainTag> postTags { get; set; }
-        public DbSet<Subtag> subtags { get; set; }
+        //This property for Post
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<MainTag> PostTags { get; set; }
+        public DbSet<Subtag> Subtags { get; set; }
+        public DbSet<Likepost> Likeposts { get; set; }
+        public DbSet<CommentPost> CommentPosts { get; set; }
+
+
+        //this Property for Users
         public DbSet<Country> Countries { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Langues> Langues { get; set; }

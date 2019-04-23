@@ -11,7 +11,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190419194809_minormodifyMainTagmodel")]
-    partial class minormodifyMainTagmodel
+    partial class MinormodifyMainTagmodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

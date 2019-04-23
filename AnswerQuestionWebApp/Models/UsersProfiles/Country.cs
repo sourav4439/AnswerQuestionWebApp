@@ -10,7 +10,7 @@ namespace AnswerQuestionWebApp.Models.UsersProfiles
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<ApplicationUsers> applicationUsers { get; set; }
+        public IEnumerable<ApplicationUsers> ApplicationUsers { get; set; }
 
 
     }

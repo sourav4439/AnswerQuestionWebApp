@@ -2,7 +2,7 @@
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
-    public partial class fileUpload : Migration
+    public partial class FileUpload : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

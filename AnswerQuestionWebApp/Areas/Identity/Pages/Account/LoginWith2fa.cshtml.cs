@@ -14,12 +14,12 @@ using AnswerQuestionWebApp.Models.UsersProfiles;
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class LoginWith2faModel : PageModel
+    public class LoginWith2FaModel : PageModel
     {
         private readonly SignInManager<ApplicationUsers> _signInManager;
-        private readonly ILogger<LoginWith2faModel> _logger;
+        private readonly ILogger<LoginWith2FaModel> _logger;
 
-        public LoginWith2faModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginWith2faModel> logger)
+        public LoginWith2FaModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginWith2FaModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

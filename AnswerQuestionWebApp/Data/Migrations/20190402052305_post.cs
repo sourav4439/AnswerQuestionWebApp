@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
-    public partial class post : Migration
+    public partial class Post : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

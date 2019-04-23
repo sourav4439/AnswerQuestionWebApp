@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Interfaces
 {
-    public interface Isubtagsrepo:IRepository<Subtag>
+    public interface ISubtagsrepo:IRepository<Subtag>
     {
         IEnumerable<Subtag> GetsubtagwithMaintags();
         

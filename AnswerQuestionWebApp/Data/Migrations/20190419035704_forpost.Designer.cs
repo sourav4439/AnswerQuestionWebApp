@@ -11,7 +11,7 @@ namespace AnswerQuestionWebApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190419035704_forpost")]
-    partial class forpost
+    partial class Forpost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

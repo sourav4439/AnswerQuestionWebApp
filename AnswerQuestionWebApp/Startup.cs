@@ -44,8 +44,8 @@ namespace AnswerQuestionWebApp
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"))
                     );
-            services.AddTransient<ImainTagRepository, MaintagRepository>();
-            services.AddTransient<Isubtagsrepo, Subtagrepo>();
+            services.AddTransient<IMainTagRepository, MaintagRepository>();
+            services.AddTransient<ISubtagsrepo, Subtagrepo>();
 
             services.AddIdentity<ApplicationUsers, IdentityRole>(
                 options => options.Stores.MaxLengthForKeys = 128)

@@ -2,7 +2,7 @@
 
 namespace AnswerQuestionWebApp.Data.Migrations
 {
-    public partial class changepostmodel : Migration
+    public partial class Changepostmodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

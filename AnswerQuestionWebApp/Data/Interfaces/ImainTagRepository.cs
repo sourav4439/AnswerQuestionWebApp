@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Interfaces
 {
-    public interface ImainTagRepository:IRepository<MainTag> 
+    public interface IMainTagRepository:IRepository<MainTag> 
     {
     }
 }

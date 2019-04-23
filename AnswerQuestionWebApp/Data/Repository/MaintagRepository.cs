@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnswerQuestionWebApp.Data.Repository
 {
-    public class MaintagRepository : MainRepository<MainTag>, ImainTagRepository
+    public class MaintagRepository : MainRepository<MainTag>, IMainTagRepository
     {
         public MaintagRepository(ApplicationDbContext context) : base(context)
         {
