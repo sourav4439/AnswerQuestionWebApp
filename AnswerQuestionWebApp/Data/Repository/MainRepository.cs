@@ -53,7 +53,7 @@ namespace AnswerQuestionWebApp.Data.Repository
         public void Update(T entity)
         {
            Db.Entry(entity).State = EntityState.Modified;
-           Save();
+            Save();
         }
 
         protected void Save()

@@ -16,7 +16,7 @@ namespace AnswerQuestionWebApp.Data.Interfaces
 
         T GetById(int id);
 
-        void Create(T entity);
+        void  Create(T entity);
 
         void Update(T entity);
 
