@@ -1,50 +1,53 @@
-﻿@model AnswerQuestionWebApp.Models.Post.Post
+﻿@using Microsoft.AspNetCore.Identity
+@model AnswerQuestionWebApp.Models.Post.Post
 
 @{
     ViewData["Title"] = "Createpost";
 }
+@inject SignInManager<ApplicationUsers> SignInManager
+@inject UserManager<ApplicationUsers> UserManager
 
 <h2>Create post</h2>
 
 <h4>Post</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Createpost">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostDt" class="control-label"></label>
-                <input asp-for="PostDt" class="form-control" />
-                <span asp-validation-for="PostDt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagId" class="control-label"></label>
-                <select asp-for="TagId" class ="form-control" asp-items="ViewBag.TagId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubtagId" class="control-label"></label>
-                <select asp-for="SubtagId" class ="form-control" asp-items="ViewBag.SubtagId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApplicationUsersId" class="control-label"></label>
-                <select asp-for="ApplicationUsersId" class ="form-control" asp-items="ViewBag.ApplicationUsersId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+@if (SignInManager.IsSignedIn(User)) {
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Createpost">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+
+                <input type="hidden" asp-for="PostDt" value="@DateTime.Now" />
+
+
+                <div class="form-group">
+                    <label asp-for="TagId" class="control-label"></label>
+                    <select asp-for="TagId" class="form-control" asp-items="ViewBag.TagId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubtagId" class="control-label"></label>
+                    <select asp-for="SubtagId" class="form-control" asp-items="ViewBag.SubtagId"></select>
+                </div>
+                <input type="hidden" asp-for="ApplicationUsersId" value="@UserManager.GetUserId(User)" />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+}
+
 
 <div>
     <a asp-action="Index">Back to List</a>

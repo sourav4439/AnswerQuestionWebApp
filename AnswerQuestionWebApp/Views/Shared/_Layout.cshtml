@@ -36,8 +36,9 @@
                     <a class=" nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                     <a class="nav-item nav-link" asp-area="Admin" asp-controller="admin" asp-action="Index">Admin</a>
                     <a class="nav-item nav-link" asp-area="" asp-controller="post" asp-action="Index">post</a>
+                   
                 </div>
-
+                <partial name="_LoginPartial"/>
             </nav>
         </div>
     </header>
@@ -53,8 +54,10 @@
         </div>
 
         <environment include="Development">
-            <script src="~/lib/jquery/jquery.js"></script>
-            <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
+            <script src="~/lib/jquery/jquery.js" asp-append-version="true"></script>
+            <script src="~/lib/popper.js/umd/popper.js" asp-append-version="true"></script>
+            <script src="~/lib/bootstrap/js/bootstrap.js" asp-append-version="true"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
         </environment>
         <environment exclude="Development">

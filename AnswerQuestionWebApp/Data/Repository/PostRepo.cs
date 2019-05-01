@@ -43,5 +43,14 @@ namespace AnswerQuestionWebApp.Data.Repository
                 .Include(u => u.ApplicationUsers)
                 .ToList();
         }
+
+        public IEnumerable<Post> Getallpost()
+        {
+            return Db.Posts
+                .Include(c => c.Subtag)
+                .Include(m => m.Tag)
+                .Include(u => u.ApplicationUsers)
+                .ToList();
+        }
     }
 }

@@ -21,9 +21,9 @@ namespace AnswerQuestionWebApp.Controllers
         }
         public IActionResult Index()
         {
-            
 
-            return View();
+
+            return RedirectToAction("Index", "Post");
         }
       
         public IActionResult About()

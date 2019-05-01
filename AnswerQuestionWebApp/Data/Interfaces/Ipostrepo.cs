@@ -11,6 +11,7 @@ namespace AnswerQuestionWebApp.Data.Interfaces
        IEnumerable<Post> GetPostsbySubtagId(int id);
        IEnumerable<Post> GetPostsbyMainTagId(int id);
        IEnumerable<Post> GetPostsbyUserId(string id);
+       IEnumerable<Post> Getallpost();
 
 
    }

@@ -26,7 +26,7 @@ namespace AnswerQuestionWebApp.Controllers
         }
         public IActionResult Index()
         {
-           var post= _iPostrepo.GetAll();
+           var post= _iPostrepo.Getallpost();
            return View(post);
         }
 
