@@ -8,8 +8,12 @@
     <environment include="Development">
 
 
-        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans">
+        <link href="~/css/navbar.css" rel="stylesheet" asp-append-version="true" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -23,9 +27,9 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <nav class="nav fixed-top navbar-expand-lg nav-tabs navbar-light  bg-light" style="background-color: #e3f2fd;">
+    <header class="headerbg fixed-top">
+        @*<div class="container">
+            <nav class="nav  navbar-expand-lg nav-tabs navbar-light  bg-light" style="background-color: #e3f2fd;">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -40,6 +44,22 @@
                 </div>
                 <partial name="_LoginPartial"/>
             </nav>
+        </div>*@
+        <div class="navcontainar">
+            <img src="~/images/banner1.svg" alt="logo" class="logo">
+            <nav class="mainnav">
+
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-th-large"></i>Feed</a></li>
+                    <li><a href="#"><i class="fas fa-user-tag"></i>Tag</a></li>
+                    <li><a href="#"><i class="fas fa-bell"></i>Notification</a></li>
+                    <li><a href="#"><i class="fas fa-blog"></i>Blog</a></li>
+                    <li><a href="#"><i class="fas fa-user-alt"></i>Profile</a></li>
+                   
+                </ul>
+                <partial name="_LoginPartial"/>
+            </nav> 
+
         </div>
     </header>
 
