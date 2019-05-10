@@ -21,6 +21,7 @@ namespace AnswerQuestionWebApp.Data.Repository
             return Db.Set<T>().Where(predicate).Count();
                 
         }
+        
 
         public void Create(T entity)
         {

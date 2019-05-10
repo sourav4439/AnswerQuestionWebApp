@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
 {
@@ -27,19 +28,22 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _db;
+        private IHostingEnvironment _iHostingEnvironment;
 
         public RegisterModel(
             UserManager<ApplicationUsers> userManager,
             SignInManager<ApplicationUsers> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            IHostingEnvironment iHostingEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _db = db;
+            _iHostingEnvironment = iHostingEnvironment;
         }
 
         [BindProperty]
@@ -113,19 +117,25 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                string uniqphotoname = null;
+                if (Input.Photo!=null)
+                {
+                  string userphotofolder=  Path.Combine(_iHostingEnvironment.WebRootPath, "userphoto");
+                 uniqphotoname= Guid.NewGuid().ToString() + "_" + Input.Photo.FileName;
+                  string photopath= Path.Combine(userphotofolder, uniqphotoname);
+                  Input.Photo.CopyTo(new FileStream(photopath,FileMode.Create));
+                }
                 var user = new ApplicationUsers {
                     UserName = Input.Email,
-                    Name= Input.Name,                   
+                    Email = Input.Email,
+                    Name = Input.Name,                   
                     GenderId = Input.GenderId,
                     CountryId = Input.CountryId,
                     LanguesId = Input.LanguesId,
-                    PhoneNumber = Input.PhoneNumber,        
+                    PhoneNumber = Input.PhoneNumber, 
+                    Photo = uniqphotoname
                 };
-                using (var memoryStream = new MemoryStream())
-                {
-                    await Input.Photo.CopyToAsync(memoryStream);
-                    user.Photo = memoryStream.ToArray();
-                }
+               
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

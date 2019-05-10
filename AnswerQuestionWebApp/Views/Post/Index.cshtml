@@ -1,22 +1,13 @@
-﻿
-
+﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<AnswerQuestionWebApp.Models.Post.Post>
-
-
-
 @{
     ViewData["Title"] = "Index";
-
-}
-@functions{
-    public string PhotoString(byte[] photodata)
-    {
-        var photo = Convert.ToBase64String(photodata);
-        return "data:Image/png;Base64," + photo;
-    }
-
     
 }
+
+
+
+
 
 @section Style
     {
@@ -24,12 +15,12 @@
 }
 <div class="wrapper">
     <span class="square">
-        
+
         <a class="createpost" asp-area="" asp-action="Createpost" asp-controller="Post">Ask A Question</a>
     </span>
 </div>
 
-   
+
 
 <!-- ==============================================
 Hero
@@ -43,6 +34,7 @@ Hero
             <div class="col-lg-6 offset-lg-3">
                 @foreach (var post in Model)
                 {
+                    var photopath = "~/userphoto/" + post.ApplicationUsers.Photo;
                     <div class="cardbox shadow-lg bg-white">
 
                         <div class="cardbox-heading">
@@ -53,14 +45,14 @@ Hero
                                 </button>
                                 <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                     @*<a class="dropdown-item" href="#">Hide post</a>
-                                    <a class="dropdown-item" href="#">Stop following</a>*@
+                                        <a class="dropdown-item" href="#">Stop following</a>*@
                                     <a class="dropdown-item" href="#">Report</a>
                                 </div>
                             </div><!--/ dropdown -->
                             <div class="media m-0">
                                 <div class="d-flex mr-3">
 
-                                    <a href=""><img class="img-fluid rounded-circle" src="@PhotoString(post.ApplicationUsers.Photo)" alt="User"></a>
+                                    <a href=""><img class="img-fluid rounded-circle" src="@photopath" alt="UserPhoto" asp-append-version="true" ></a>
                                 </div>
                                 <div class="media-body">
                                     <p class="m-0">@post.ApplicationUsers.Name</p>
@@ -72,9 +64,11 @@ Hero
                         </div><!--/ cardbox-heading -->
 
                         <div class="cardbox-item">
-                            
-                          
-                            <p class="Decription">@post.Description @post.Title</p>
+                            <div class="post-title">
+                                <h6>@post.Title</h6><br/>
+                            </div>
+
+                            <p class="Decription">@post.Description</p>
                         </div><!--/ cardbox-item -->
                         <div class="cardbox-base">
                             <ul class="float-right">
@@ -89,20 +83,24 @@ Hero
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                <li><a><span>242 Likes</span></a></li>
-                            </ul>
+                                <li id="LikeList"> @await Component.InvokeAsync("Like", new { id = post.Id })</li>
+                                
+                                </ul>
+
+                           
                         </div><!--/ cardbox-base -->
-                        
-                        
-                        
-                        
+
+
+
                         <div class="buttonclass">
-                            <a href="#" class="likebtn"><i class="fas fa-thumbs-up icm"></i>Like</a>
-                            <a  href="#" class="commentbtn"><i class="fas fa-comments icm"></i>Answer</a>
+                            <input type="hidden" value="@post.Id" id="postid" />
+                           
+                            <a href="javascript:void(0)"  class="likeid"><i class="fas fa-thumbs-up icm"></i>Like</a>
+                            <a asp-action="Comment" asp-route-id="@post.Id" class="commentbtn"><i class="fas fa-comments icm"></i>Answer</a>
                             <a href="#" class="Sharebtn"><i class="fas fa-share-alt icm"></i>Share</a>
 
                         </div>
-                       
+
 
                     </div><!--/ cardbox -->
                 }
@@ -112,16 +110,37 @@ Hero
     </div><!--/ container -->
 </section>
 
+@section Scripts
+    {
+   <script type="text/javascript" asp-append-version="true">
+
+    $(document).ready(function() {
+
+        $('.likeid').click(function() {
+            var id = $(this).closest("div.buttonclass").find("input[id='postid']").val();
+            $.ajax({
+                type: "POST",
+                url: '/post/like/' + id + '',
+                contentType: "application/json; charset=utf-8",
+
+                dataType: "json",
+                success: function(data) {
+                           
+                }
+
+            });
+            
+            });
+        
+            
+                    
+    });
+
+          
+
+
+        </script>
+}
 
 
 
-
-@*<div class="cardbox-comments">
-                            <span class="comment-avatar float-left">
-                                <a href=""><img class="rounded-circle" src="#" alt="..."></a>
-                            </span>
-                            <div class="search">
-                                <input placeholder="Write a comment" type="text">
-                                <button><i class="fa fa-camera"></i></button>
-                            </div><!--/. Search -->
-                        </div><!--/ cardbox-like -->*@

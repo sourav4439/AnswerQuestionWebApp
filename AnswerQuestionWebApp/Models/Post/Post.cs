@@ -14,7 +14,7 @@ namespace AnswerQuestionWebApp.Models.Post
         
         public int Id { get; set; }
         [Required]
-        [StringLength(200 ,ErrorMessage = "Please Write 200 Character Bellow")]
+        [StringLength(200, ErrorMessage = "Please Write 200 Character Bellow")]
         public string Title { get; set; }
         
         public string Description { get; set; }

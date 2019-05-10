@@ -93,7 +93,7 @@ namespace AnswerQuestionWebApp.Areas.Identity.Pages.Account.Manage
                 Gender = user.Gender,
                 Country = user.Country,
                 Langues = user.Langues,
-                Photo = user.Photo,
+                //Photo = user.Photo,
                 
 
             };

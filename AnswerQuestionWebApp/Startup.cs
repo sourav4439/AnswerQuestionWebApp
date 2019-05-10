@@ -47,6 +47,7 @@ namespace AnswerQuestionWebApp
             services.AddTransient<IMainTagRepository, MaintagRepository>();
             services.AddTransient<ISubtagsrepo, Subtagrepo>();
             services.AddTransient<IPostrepo, PostRepo>();
+            services.AddTransient<ILikeRepo, Likerepo>();
 
             services.AddIdentity<ApplicationUsers, IdentityRole>(
                 options => options.Stores.MaxLengthForKeys = 128)

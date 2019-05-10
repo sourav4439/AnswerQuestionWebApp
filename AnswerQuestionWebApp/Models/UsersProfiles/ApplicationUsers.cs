@@ -12,7 +12,7 @@ namespace AnswerQuestionWebApp.Models.UsersProfiles
     {
         public ApplicationUsers():base(){  }
         [Required]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         [Required]
         [StringLength(15)]
