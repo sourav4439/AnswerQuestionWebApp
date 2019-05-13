@@ -46,7 +46,7 @@ Hero
                                 <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                     @*<a class="dropdown-item" href="#">Hide post</a>
                                         <a class="dropdown-item" href="#">Stop following</a>*@
-                                    <a class="dropdown-item" href="#">Report</a>
+                                    <a class="dropdown-item" asp-action="Postreport" asp-controller="Post" asp-route-id="@post.Id">Report</a>
                                 </div>
                             </div><!--/ dropdown -->
                             <div class="media m-0">
@@ -127,12 +127,8 @@ Hero
 
                 dataType: "json",
                 success: function(data) {
-                    if (data > 0) {
-                        tlike.html('<a><span>' + data + ' Likes</span></a>');
-                    } 
                    
-                    
-
+                        tlike.html('<a><span>' + data + ' Likes</span></a>');
                     
                 }
 

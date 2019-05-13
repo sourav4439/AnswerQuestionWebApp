@@ -9,7 +9,7 @@ namespace AnswerQuestionWebApp.Models.Post
 {
     public class Postreport
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Report { get; set; }
 

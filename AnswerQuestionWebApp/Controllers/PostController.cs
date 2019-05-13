@@ -24,7 +24,7 @@ namespace AnswerQuestionWebApp.Controllers
         private readonly IPostCommentrepo _comment;
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly SignInManager<ApplicationUsers> _signinManager;
-      
+        private readonly IPostReportRepo _report;
 
 
         public PostController(IPostrepo iPostrepo,
@@ -32,7 +32,7 @@ namespace AnswerQuestionWebApp.Controllers
             ISubtagsrepo iSubtagsrepo,
             ILikeRepo likeRepo, 
             UserManager<ApplicationUsers> userManager,
-            SignInManager<ApplicationUsers> signInManager,IPostCommentrepo comment)
+            SignInManager<ApplicationUsers> signInManager,IPostCommentrepo comment,IPostReportRepo reportRepo)
         {
             _iPostrepo = iPostrepo;
             _iMainTagRepositoryrepo = imaiMainTag;
@@ -41,6 +41,7 @@ namespace AnswerQuestionWebApp.Controllers
             _userManager = userManager;
             _signinManager = signInManager;
             _comment = comment;
+            _report = reportRepo;
         }
         public IActionResult Index()
         {
@@ -99,14 +100,23 @@ namespace AnswerQuestionWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Postreport()
+        public IActionResult Postreport(int id)
         {
+            ViewBag.id = id;
             return View();
         }
         [HttpPost]
         public IActionResult Postreport(Postreport postreport)
+
         {
-            return View();
+            postreport.Id = null;
+            if (ModelState.IsValid)
+            {
+                _report.Create(postreport);
+                return View();
+            }
+           
+            return View(postreport);
         }
 
 
@@ -116,15 +126,37 @@ namespace AnswerQuestionWebApp.Controllers
         {
             if (_signinManager.IsSignedIn(User))
             {
-                Likepost likepost = new Likepost();
-                likepost.PostId = id;
-                likepost.ApplicationUsersId = _userManager.GetUserId(User);
-                likepost.LikeCount = 1;
-                _likerepo.Create(likepost);
+                
+                Likepost likepost = new Likepost
+                {
+                    PostId = id,
+                    ApplicationUsersId = _userManager.GetUserId(User),
+                    LikeCount = 1
+                };
                 var like = _likerepo.GetAll().AsQueryable();
+                if (like.Any(l=>l.ApplicationUsersId==likepost.ApplicationUsersId && l.PostId==likepost.PostId ))
+                {
+                   var liked= _likerepo.Find(l =>
+                        l.PostId == likepost.PostId &&
+                        l.ApplicationUsersId == likepost.ApplicationUsersId)
+                       .SingleOrDefault();
 
-                var tlike=  like.Count(p => p.PostId == id);
-                return Json(tlike);
+                   _likerepo.Delete(liked);
+
+                   var likedc = _likerepo.GetAll().AsQueryable();
+
+                    var tlike = likedc.Count(p => p.PostId == id);
+                   return Json(tlike);
+                }
+                else
+                {
+                    _likerepo.Create(likepost);
+
+                    var likecc = _likerepo.GetAll().AsQueryable();
+                    var tlike = likecc.Count(p => p.PostId == id);
+                    return Json(tlike);
+                }
+                
 
             }
 
