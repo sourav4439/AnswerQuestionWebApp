@@ -14,7 +14,15 @@ namespace AnswerQuestionWebApp.Data.Repository
         public PostRepo(ApplicationDbContext context) : base(context)
         {
         }
+        public Post GetPostbyId(int id)
+        {
+            return Db.Posts.Where(p => p.Id == id)
+                .Include(c => c.Subtag)
+                .Include(m => m.Tag)
+                .Include(u => u.ApplicationUsers).SingleOrDefault();
 
+
+        }
 
         public IEnumerable<Post> GetPostsbySubtagId(int id)
         {

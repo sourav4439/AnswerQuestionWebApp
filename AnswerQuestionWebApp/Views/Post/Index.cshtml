@@ -77,13 +77,13 @@ Hero
                                 <li><a><i class="fa fa-share-alt"></i></a></li>
                                 <li><a><em class="mr-3">03</em></a></li>
                             </ul>
-                            <ul>
+                            <ul id="LikeList">
                                 <li><a><i class="fa fa-thumbs-up"></i></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/3.jpeg" class="img-fluid rounded-circle" alt="User"></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/1.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/5.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
                                 <li><a href="#"><img src="http://www.themashabrand.com/templates/bootsnipp/post/assets/img/users/2.jpg" class="img-fluid rounded-circle" alt="User"></a></li>
-                                <li id="LikeList"> @await Component.InvokeAsync("Like", new { id = post.Id })</li>
+                                <li id="totollike"> @await Component.InvokeAsync("Like", new { id = post.Id })</li>
                                 
                                 </ul>
 
@@ -96,7 +96,7 @@ Hero
                             <input type="hidden" value="@post.Id" id="postid" />
                            
                             <a href="javascript:void(0)"  class="likeid"><i class="fas fa-thumbs-up icm"></i>Like</a>
-                            <a asp-action="Comment" asp-route-id="@post.Id" class="commentbtn"><i class="fas fa-comments icm"></i>Answer</a>
+                            <a asp-action="SinglePost" asp-route-id="@post.Id" asp-controller="Post" class="commentbtn"><i class="fas fa-comments icm"></i>Answer</a>
                             <a href="#" class="Sharebtn"><i class="fas fa-share-alt icm"></i>Share</a>
 
                         </div>
@@ -118,6 +118,8 @@ Hero
 
         $('.likeid').click(function() {
             var id = $(this).closest("div.buttonclass").find("input[id='postid']").val();
+            var tlike = $(this).closest("div.buttonclass").prev("div.cardbox-base").children("ul#LikeList")
+                .children("li#totollike");
             $.ajax({
                 type: "POST",
                 url: '/post/like/' + id + '',
@@ -125,12 +127,21 @@ Hero
 
                 dataType: "json",
                 success: function(data) {
-                           
+                    if (data > 0) {
+                        tlike.html('<a><span>' + data + ' Likes</span></a>');
+                    } 
+                   
+                    
+
+                    
                 }
 
             });
             
-            });
+           
+
+           
+        });
         
             
                     

@@ -1,0 +1,52 @@
+﻿
+@model AnswerQuestionWebApp.Models.ViewModels.SinglepostViewmodel
+
+
+@{
+    ViewData["Title"] = Model.Post.Title;
+}
+
+
+<div>
+
+    <hr />
+    <dl class="row">
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Title)
+        </dd>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Description)
+        </dd>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.PostDt)
+        </dd>
+
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Tag.Name)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Post.Subtag.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayFor(model => model.Post.ApplicationUsers.Name)
+        </dt>
+
+    </dl>
+</div>
+<form asp-action="CommentPost" asp-controller="Post" method="post">
+
+    <label asp-for="CommentPost.CommentDescription"></label>
+    <input asp-for="CommentPost.CommentDescription" class="" required />
+    <span asp-validation-for="CommentPost.CommentDescription" class="text-danger"></span>
+    @Html.HiddenFor(model => model.Post.Id)
+    
+
+    <input type="submit" value="submit" />
+
+</form>
+<div>
+    @await Component.InvokeAsync("Comment",new{id=Model.Post.Id })
+</div>

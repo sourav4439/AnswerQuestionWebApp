@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AnswerQuestionWebApp.Models.Post.CommentPost>
+
+@foreach (var comment in Model)
+{
+    <label>@comment.ApplicationUsers.Name</label>
+    <label>@comment.CommentDescription</label>
+
+}

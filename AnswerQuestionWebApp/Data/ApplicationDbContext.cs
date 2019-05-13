@@ -22,6 +22,7 @@ namespace AnswerQuestionWebApp.Data
         public DbSet<Subtag> Subtags { get; set; }
         public DbSet<Likepost> Likeposts { get; set; }
         public DbSet<CommentPost> CommentPosts { get; set; }
+        public DbSet<Postreport> Postreports { get; set; }
 
 
         //this Property for Users
