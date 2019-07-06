@@ -6,6 +6,7 @@ using AnswerQuestionWebApp.Models.Post;
 using AnswerQuestionWebApp.Models.UsersProfiles;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using AnswerQuestionWebApp.Models.ViewModels;
 
 namespace AnswerQuestionWebApp.Data
 {
@@ -29,5 +30,6 @@ namespace AnswerQuestionWebApp.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Langues> Langues { get; set; }
+        
     }
 }

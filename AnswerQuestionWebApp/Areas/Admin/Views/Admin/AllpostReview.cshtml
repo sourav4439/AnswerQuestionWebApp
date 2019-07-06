@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AnswerQuestionWebApp.Models.Post.Post>
+
+@{
+    ViewData["Title"] = "AllpostReview";
+}
+
+<h1>AllpostReview</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PostDt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUsers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="word-break: break-all">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td style="word-break: break-all">
+                    @Html.DisplayFor(modelItem => item.PostDt)
+                </td>
+                <td style="word-break: break-all">
+                    @Html.DisplayFor(modelItem => item.ApplicationUsers.Name)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
