@@ -113,10 +113,15 @@ namespace AnswerQuestionWebApp.Controllers
             if (ModelState.IsValid)
             {
                 _report.Create(postreport);
+                ModelState.Clear();
+                
                 return View();
             }
-           
-            return View(postreport);
+            else
+            {
+                return View(postreport);
+            }
+            
         }
 
 

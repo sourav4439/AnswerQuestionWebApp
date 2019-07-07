@@ -17,11 +17,13 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUsers> _usermaneger;
         private readonly IPostrepo _postrepo;
+        private readonly IPostReportRepo _postreport;
 
-        public AdminController(UserManager<ApplicationUsers> userManager,IPostrepo postrepo)
+        public AdminController(UserManager<ApplicationUsers> userManager,IPostrepo postrepo,IPostReportRepo postReport)
         {
             _usermaneger = userManager;
             _postrepo = postrepo;
+            _postreport = postReport;
         }
         public IActionResult Index()
         {
@@ -65,6 +67,11 @@ namespace AnswerQuestionWebApp.Areas.Admin.Controllers
         {
            var posts= _postrepo.Getallpost();
             return View(posts);
+        }
+        public IActionResult AllpostReportReview()
+        {
+            var postsReport = _postreport.GetPostreportsReview();
+            return View(postsReport);
         }
 
 

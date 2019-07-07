@@ -7,6 +7,7 @@ using AnswerQuestionWebApp.Models.Post;
 namespace AnswerQuestionWebApp.Data.Interfaces
 {
    public interface IPostReportRepo:IRepository<Postreport>
-    {
-    }
+   {
+       IEnumerable<Postreport> GetPostreportsReview();
+   }
 }

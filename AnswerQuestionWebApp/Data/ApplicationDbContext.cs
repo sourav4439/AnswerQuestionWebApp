@@ -31,5 +31,6 @@ namespace AnswerQuestionWebApp.Data
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Langues> Langues { get; set; }
         
+        
     }
 }
